@@ -1,0 +1,75 @@
+:root{
+    --main: #FFD1DA;
+}
+.mainbg{
+    background-color: #A084E8;
+    /* background-image: url(../image/regi2.jpg); */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.navcng{
+    background-color: var(--main);
+}
+.mainbox{
+    border: 1px black solid;
+    background: rgba(255, 255, 255, 0.467);
+    box-shadow: 0px 0px 40px 10px;
+    border-radius: 15px;
+}
+.headbox{
+    border: 3px;
+    border-bottom-style: solid;
+}
+.headtxt{
+    font-size: 30px;
+}
+.buttonset{
+    border: 3px;
+    border-top-style: solid;
+}
+/* form css only */
+input.invalid {
+    background-color: #ffdddd;
+    color: red;
+    border: 3px red solid;
+}
+textarea.invalid {
+    background-color: #ffdddd;
+    border: 3px red solid;
+}
+.tab {
+    display: none;
+}
+button {
+    background-color: #04AA6D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+}
+button:hover {
+    opacity: 0.8;
+}
+/* #prevBtn {
+    background-color: #bbbbbb;
+} */
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 20px;
+    width: 20px;
+    margin: 0 2px;
+    background-color: #fff9f9;
+    border: 3px solid;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+.step.active {
+    opacity: 1;
+}
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #04AA6D;
+}

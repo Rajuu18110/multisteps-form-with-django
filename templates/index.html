@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% for front in fronts %}{{front.title}}{% endfor %}</title>
+    <link rel="icon" type="image/x-icon" href="{% for front in fronts %}{{front.fevi.url}}{% endfor %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body class="mainbg" style="background-image: url({% for front in fronts %}{{front.backgroundimg.url}}{% endfor %});">
+    <nav class="navbar navbar-expand-lg sticky-top navcng">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img class="me-3" src="{% for front in fronts %}{{front.logo.url}}{% endfor %}" alt="Form" height="50px" srcset="">
+                <span class="fs-3">{% for front in fronts %}{{front.mainname}}{% endfor %}</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-5 ">
+        <div class="container-fluid col-lg-7 p-0">
+            <div class="mainbox">
+                <form class="row g-3" id="regForm" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="tab">
+                        <div class="headbox">
+                            <p class="headtxt text-center m-3">{% for front in fronts %}{{front.firsttitle}}{% endfor %}</p>
+                        </div>
+                        <div class="inputbox m-5 row">
+                            <div class="col-md-12">
+                                <label for="fullname" class="form-label">Full name :</label>
+                                <input type="text" class="form-control" name="fullname" id="fullname"
+                                    oninput="this.className = 'form-control'" onkeypress="return ValidateAlpha(event);"
+                                    placeholder="Enter Full Name" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="adds" class="form-label">Address :</label>
+                                <textarea class="form-control" id="adds" name="adds"
+                                    oninput="this.className = 'form-control'" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">City :</label>
+                                <input type="text" class="form-control" name="city" id="city"
+                                    oninput="this.className = 'form-control'" onkeypress="return ValidateAlpha(event);" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="state" class="form-label">State :</label>
+                                <input type="text" class="form-control" name="state" id="state"
+                                    oninput="this.className = 'form-control'" onkeypress="return ValidateAlpha(event);" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="zip" class="form-label">Zip code :</label>
+                                <input type="tell" class="form-control" name="zip" id="zip"
+                                    onkeypress="return onlyNumberKey(event)" maxlength="6" minlength="6"
+                                    oninput="this.className = 'form-control'" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="mob" class="form-label">Mobile Number :</label>
+                                <input type="tell" class="form-control" name="mob" id="mob" maxlength="10"
+                                    oninput="this.className = 'form-control'" onkeypress="return onlyNumberKey(event)"
+                                    minlength="10" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="mail" class="form-label">Mail :</label>
+                                <input type="email" class="form-control" name="mail" id="mail"
+                                    oninput="this.className = 'form-control'" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="dob" class="form-label">Date of Birth :</label>
+                                <input type="date" class="form-control" name="dob" id="dob"
+                                    oninput="this.className = 'form-control'" required>
+                            </div> 
+                            <div class="col-md">
+                                <label class="form-label" for="perimg">Photo of you:</label>
+                                <input type="file" class="form-control" name="perimg" id="perimg"
+                                    oninput="this.className = 'form-control'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="headbox">
+                            <p class="headtxt text-center m-3">{% for front in fronts %}{{front.sectitle}}{% endfor %}</p>
+                        </div>
+                        <div class="inputbox m-5">
+                            <div class="col-md-12">
+                                <label for="education" class="form-label">Education :</label>
+                                <input type="text" class="form-control" id="education" name="education"
+                                    oninput="this.className = 'form-control'"
+                                    placeholder="Enter your college degree name eg. BE/BCA or 10\12th" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="field" class="form-label">Field :</label>
+                                <input type="text" class="form-control" id="field" name="field"
+                                    oninput="this.className = 'form-control'" placeholder="" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="university" class="form-label">University/Insitution :</label>
+                                <input type="text" class="form-control" id="university" name="university"
+                                    oninput="this.className = 'form-control'" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="passyr" class="form-label">Year of Passing :</label>
+                                <input type="text" class="form-control" id="passyr" name="passyr"
+                                    oninput="this.className = 'form-control'" onkeypress="return onlyNumberKey(event)" maxlength="4"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="headbox">
+                            <p class="headtxt text-center m-3">{% for front in fronts %}{{front.thirdtitle}}{% endfor %}</p>
+                        </div>
+                        <div class="inputbox m-5">
+                            <div class="col-md-12">
+                                <label for="radio1" class="form-label">{% for front in fronts %}{{front.queone}}{% endfor %}</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="oneradio" id="y1" value="yes">
+                                    <label class="form-check-label" for="y1">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="oneradio" id="n1" value="no" onclick="document.getElementById('applicationdate').value = ''" checked>
+                                    <label class="form-check-label" for="n1">No</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="applicationdate" class="form-label">{% for front in fronts %}{{front.quesec}}{% endfor %}</label>
+                                <input type="date" class="form-control novalidate" oninput="this.className = 'form-control novalidate'" name="applicationdate" id="applicationdate">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="radio2" class="form-label">{% for front in fronts %}{{front.quethird}}{% endfor %}</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="secradio" id="y2" value="yes">
+                                    <label class="form-check-label" for="y2">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="secradio" id="n2" value="no" checked>
+                                    <label class="form-check-label" for="n2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="headbox">
+                            <p class="headtxt text-center m-3">{% for front in fronts %}{{front.forthtitle}}{% endfor %}</p>
+                        </div>
+                        <div class="inputbox m-5">
+                            <div class="col-md-12">
+                                <label for="validationDefault01 " class="form-label">{% for front in fronts %}{{front.firstsertitle}}{% endfor %}</label>
+                                {% for it in itsers %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="{{it.id}}" name="itservice[]" value="{{it.itser}}">
+                                    <label class="form-check-label" for="{{it.id}}">{{it.itser}}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-12">
+                                <label for="validationDefault02" class="form-label">{% for front in fronts %}{{front.secsertitle}}{% endfor %}</label>
+                                {% for lang in langsers %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="{{lang.id}}" name="langservice[]" value="{{lang.langser}}">
+                                    <label class="form-check-label" for="{{lang.id}}">{{lang.langser}}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="headbox">
+                            <p class="headtxt text-center m-3">{% for front in fronts %}{{front.fifthtitle}}{% endfor %}</p>
+                        </div>
+                        <div class="inputbox m-5">
+                            <div class="col-md-12">
+                                <label for="radio3" class="form-label">FEEs Paid?</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="thirdradio" id="y3" value="yes">
+                                    <label class="form-check-label" for="y3">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="thirdradio" id="n3" value="no" onclick="document.getElementById('feedata').value = ''" checked>
+                                    <label class="form-check-label" for="n3">No</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="feedata" class="form-label">If Yes, then what amaount you have paid?</label>
+                                <input type="text" class="form-control novalidate" oninput="this.className = 'form-control novalidate'" name="feedata" id="feedata">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-0 ">
+                        <div class="row justify-content-end mx-3">
+                            <button class="btn btn-outline-success mt-2 me-sm-2 col-sm-2" type="button" id="prevBtn"
+                                onclick="nextPrev(-1)">Previous</button>
+                            <button class="btn btn-outline-primary mt-2 me-sm-4 col-sm-2" type="button" id="nextBtn"
+                                onclick="nextPrev(1)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Circles which indicates the steps of the form: -->
+                    <div class="m-3" style="text-align:center;">
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="row pt-3 px-2 mt-4 navcng">
+        <div class="col-md-6 "><span class="mb-3 mb-md-0 text-muted">&copy;</span>
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <i class="bi bi-card-image" style="font-size: 2rem; color: rgb(0, 0, 0);"></i>
+            </a>
+            <span class="mb-3 mb-md-0 text-muted">, All Right Reserved.</span>
+        </div>
+
+        <ul class="col-md-6 d-flex list-unstyled justify-content-md-end">
+            <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-instagram" style="font-size: 2rem; color: rgb(0, 0, 0);"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook" style="font-size: 2rem; color: rgb(0, 0, 0);"></i></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-whatsapp" style="font-size: 2rem; color: rgb(0, 0, 0);"></i></a></li>
+        </ul>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
